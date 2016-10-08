@@ -24,8 +24,8 @@ function getCanvasMousePos(canvas, event) {
         y: (event.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
     };
 }
-// canvas.addEventListener('click', function (ev : MouseEvent) {
-//     let mouse = getCanvasMousePos(canvas, ev);
-//     drawPoint(mouse.x, mouse.y);
-// });
+canvas.addEventListener('click', function (ev) {
+    let mouse = getCanvasMousePos(canvas, ev);
+    drawPoint(mouse.x, mouse.y);
+});
 //# sourceMappingURL=genmap.js.map

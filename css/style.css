@@ -1,8 +1,10 @@
 #map {
     float: left;
     background-color: floralwhite;
+    width: 70%;
 }
 
 #panel {
-    margin-left: 1210px;
+    margin-left: 70%;
+    padding-left: 10px;
 }
