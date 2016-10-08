@@ -12,7 +12,9 @@ var LinkType;
 })(LinkType || (LinkType = {}));
 ;
 class City {
-    constructor(name, abbrev, type) {
+    constructor() {
+    }
+    addDetails(name, abbrev, type) {
         this.name = name;
         this.abbrev = abbrev;
         this.type = type;
@@ -29,6 +31,8 @@ var coords;
 var cities = Array(71);
 var links;
 var loadStatus = 0;
+for (let i = 0; i < 71; i++)
+    cities[i] = new City();
 function drawCity(city) {
     if (city.type == PlaceType.Sea) {
         context.fillStyle = "deepskyblue";
@@ -80,13 +84,12 @@ function populateCities() {
         let type_num = places_json.places[i].type;
         let place;
         if (type_num == 1) {
-            place = new City(name, abbrev, PlaceType.Sea);
+            cities[i].addDetails(name, abbrev, PlaceType.Sea);
         }
         else {
-            place = new City(name, abbrev, PlaceType.Land);
+            cities[i].addDetails(name, abbrev, PlaceType.Land);
         }
-        place.id = i;
-        cities[i] = place;
+        cities[i].id = i;
     }
     loadStatus++;
     if (loadStatus >= 3)
@@ -110,7 +113,7 @@ function parseLinks(e) {
         drawMap();
 }
 var request = new XMLHttpRequest();
-request.open("GET", "../data/places.json", true);
+request.open("GET", "data/places.json", true);
 request.onload = function (e) {
     if (request.readyState === 4) {
         if (request.status === 200) {
@@ -127,12 +130,12 @@ request.onerror = function (e) {
 };
 request.send(null);
 var request1 = new XMLHttpRequest();
-request1.open("GET", "../data/coords.json", true);
+request1.open("GET", "data/coords.json", true);
 request1.onload = parseCoords;
 request1.onerror = function (e) { console.error(request1.statusText); };
 request1.send(null);
 var link_request = new XMLHttpRequest();
-link_request.open("GET", "../data/links.json", true);
+link_request.open("GET", "data/links.json", true);
 link_request.onload = parseLinks;
 link_request.onerror = function (e) { console.error(request1.statusText); };
 link_request.send(null);
