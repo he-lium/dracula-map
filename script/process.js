@@ -45,6 +45,7 @@ function drawPlayer(player, cityID) {
 }
 var totalMoves = 0;
 var playHistory = [[], [], [], [], []];
+var playEvents = [];
 var currentMove = 0;
 function drawMove() {
     drawMap();
@@ -81,6 +82,7 @@ function processMoves(raw) {
     let location;
     let movesArray = raw.split(" ");
     let id;
+    let eventStr = "";
     movesArray.forEach(function (move, index) {
         switch (move[0]) {
             case "G":
@@ -100,10 +102,13 @@ function processMoves(raw) {
                 break;
             default: break;
         }
+        eventStr = move[0];
         location = move.substr(1, 2);
         console.log(location);
-        if (location == 'TP')
+        if (location == 'TP') {
             id = location = 'CD';
+            eventStr += " teleported and";
+        }
         if (location[0] == 'D' && parseInt(location[1])) {
             id = playHistory[p][playHistory[p].length - parseInt(location[1])];
         }
@@ -112,8 +117,13 @@ function processMoves(raw) {
         }
         else {
             id = cities.find((city) => city.abbrev == location).id;
+            eventStr += " moved to " + cities[id].name;
+            if (index > 4)
+                eventStr += " from " + cities[playHistory[p][playHistory[p].length - 1]].name;
         }
         playHistory[p].push(id);
+        console.log(eventStr);
+        playEvents.push(eventStr);
         totalMoves++;
     });
     showStats();

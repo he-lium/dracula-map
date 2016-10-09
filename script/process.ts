@@ -40,6 +40,7 @@ function drawPlayer(player : Player, cityID : number) {
 
 var totalMoves : number = 0;
 var playHistory : Array<Array<number>> = [[], [], [], [], []];
+var playEvents : Array<string> = [];
 var currentMove = 0;
 
 function drawMove() {
@@ -77,6 +78,7 @@ function processMoves(raw : string) {
     let location;
     let movesArray : Array<string> = raw.split(" ");
     let id;
+    let eventStr = "";
     movesArray.forEach(function (move : string, index : number) {
         switch(move[0]) {
             case "G": p = Player.Goldamine; break;
@@ -86,17 +88,25 @@ function processMoves(raw : string) {
             case "D": p = Player.Dracula; break;
             default: break;
         }
+        eventStr = move[0];
         location = move.substr(1, 2);
         console.log(location);
-        if (location == 'TP') id = location = 'CD';
+        if (location == 'TP') {
+            id = location = 'CD';
+            eventStr += " teleported and"
+        }
         if (location[0] == 'D' && parseInt(location[1])) {
             id = playHistory[p][playHistory[p].length - parseInt(location[1])];
         } else if (location == 'HI') {
             id = playHistory[p][playHistory[p].length - 1];
         } else {
             id = cities.find((city) => city.abbrev == location).id;
+            eventStr += " moved to " + cities[id].name;
+            if (index > 4) eventStr += " from " + cities[playHistory[p][playHistory[p].length - 1]].name;
         }
         playHistory[p].push(id);
+        console.log(eventStr);
+        playEvents.push(eventStr);
         totalMoves++;
     });
     showStats();

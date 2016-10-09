@@ -8,8 +8,10 @@ var changed = false;
 var stats = {
     div : document.getElementById('stats'),
     roundCounter : document.getElementById('round-move'),
+    moveEvent : document.getElementById('move-event'),
     update : function () {
         stats.roundCounter.innerText = "Move " + currentMove.toString() + '/' + (totalMoves - 1).toString() + ', Round ' + Math.floor(currentMove / 5).toString() + '/' + (Math.floor(totalMoves / 5));
+        stats.moveEvent.innerHTML = playEvents[currentMove];
     }
 };
 
