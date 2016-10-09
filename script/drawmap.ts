@@ -40,10 +40,10 @@ function drawCity(city : City) {
     }
     let x = Math.floor(city.x);
     let y = Math.floor(city.y);
-    context.fillRect(x - 5, y - 5, 10, 10);
+    context.fillRect(x - 10, y - 10, 20, 20);
     context.font = "16px serif";
     context.fillStyle = "black";
-    context.fillText(city.abbrev, x - 10, y - 10);
+    context.fillText(city.abbrev, x + 10, y - 10);
 }
 
 function drawLinks(type : LinkType, c1 : number, c2 : number) {
@@ -65,6 +65,7 @@ function drawLinks(type : LinkType, c1 : number, c2 : number) {
 
 
 function drawMap() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
     links.filter((value) => value.type == LinkType.Sea)
         .forEach((l : Link) => drawLinks(l.type, l.cities[0], l.cities[1]));
     links.filter((value) => value.type == LinkType.Rail)
@@ -72,6 +73,7 @@ function drawMap() {
     links.filter((value) => value.type == LinkType.Road)
         .forEach((l : Link) => drawLinks(l.type, l.cities[0], l.cities[1]));
     cities.forEach(drawCity);
+//for (let i = 0; i < 5; i++) drawPlayer(i, 4);
 }
 
 function populateCities() {
