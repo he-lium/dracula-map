@@ -9,7 +9,7 @@ var stats = {
     div : document.getElementById('stats'),
     roundCounter : document.getElementById('round-move'),
     update : function () {
-        stats.roundCounter.innerText = "Move " + currentMove.toString() + '/' + (totalMoves - 1).toString() + ', Round ' + Math.floor(currentMove / 5).toString() + '/' + (Math.floor(totalMoves / 5) - 1);
+        stats.roundCounter.innerText = "Move " + currentMove.toString() + '/' + (totalMoves - 1).toString() + ', Round ' + Math.floor(currentMove / 5).toString() + '/' + (Math.floor(totalMoves / 5));
     }
 };
 
