@@ -82,3 +82,15 @@ input[type="text"] {
 #stats {
     display: none;
 }
+
+.locations {
+    font-size: 18px;
+    color: white;
+}
+
+.g {background-color: green}
+.s {background-color: blue}
+.v {background-color: aqua;
+    color : black}
+.m {background-color: teal}
+.d {background-color: darkred}

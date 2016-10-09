@@ -1,4 +1,11 @@
 enum Player {Goldamine, Seward, VanHelsing, MinaHarker, Dracula}
+var playerSpans : Array<HTMLElement> = [
+    document.getElementById('g-loc'),
+    document.getElementById('s-loc'),
+    document.getElementById('v-loc'),
+    document.getElementById('m-loc'),
+    document.getElementById('d-loc')
+]
 
 function drawPlayer(player : Player, cityID : number) {
     let x = cities[cityID].x;   
@@ -44,6 +51,9 @@ function drawMove() {
             // console.log(i, idIndex);
             let id = playHistory[i][idIndex];
             drawPlayer(i, id);
+            playerSpans[i].innerText = cities[id].abbrev + " " + cities[id].name;
+        } else {
+            playerSpans[i].innerText = "undefined";
         }
     }
 }

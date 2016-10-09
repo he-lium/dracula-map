@@ -6,6 +6,13 @@ var Player;
     Player[Player["MinaHarker"] = 3] = "MinaHarker";
     Player[Player["Dracula"] = 4] = "Dracula";
 })(Player || (Player = {}));
+var playerSpans = [
+    document.getElementById('g-loc'),
+    document.getElementById('s-loc'),
+    document.getElementById('v-loc'),
+    document.getElementById('m-loc'),
+    document.getElementById('d-loc')
+];
 function drawPlayer(player, cityID) {
     let x = cities[cityID].x;
     let y = cities[cityID].y;
@@ -48,6 +55,10 @@ function drawMove() {
             // console.log(i, idIndex);
             let id = playHistory[i][idIndex];
             drawPlayer(i, id);
+            playerSpans[i].innerText = cities[id].abbrev + " " + cities[id].name;
+        }
+        else {
+            playerSpans[i].innerText = "undefined";
         }
     }
 }
