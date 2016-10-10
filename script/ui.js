@@ -3,6 +3,8 @@ var btnLoadMoves = document.getElementById('change');
 var spanClose = document.getElementById('close');
 var txtMoves = document.getElementById('input-moves');
 var btnSubmitMoves = document.getElementById('submit-moves');
+var btnNextMove = document.getElementById('next-move');
+var btnPrevMove = document.getElementById('prev-move');
 var changed = false;
 var stats = {
     div: document.getElementById('stats'),
@@ -43,6 +45,26 @@ txtMoves.onkeyup = function (event) {
     else
         changed = true;
 };
+document.body.onkeydown = function (e) {
+    if (document.activeElement == txtMoves)
+        return;
+    if (e.keyCode == 37) {
+        btnPrevMove.focus();
+        prevMove();
+    }
+    else if (e.keyCode == 39) {
+        btnNextMove.focus();
+        nextMove();
+    }
+    else if (e.keyCode == 36) {
+        firstMove();
+    }
+    else if (e.keyCode == 35) {
+        lastMove();
+    }
+};
+btnNextMove.onclick = nextMove;
+btnPrevMove.onclick = prevMove;
 window.onload = function () {
     let query = window.location.search;
     if (query.substr(0, 6) == "?path=") {
@@ -57,6 +79,4 @@ window.onload = function () {
     }
     loadJSONs();
 };
-document.getElementById('next-move').onclick = nextMove;
-document.getElementById('prev-move').onclick = prevMove;
 //# sourceMappingURL=ui.js.map

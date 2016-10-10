@@ -63,6 +63,14 @@ function drawMove() {
         }
     }
 }
+function firstMove() {
+    currentMove = 0;
+    drawMove();
+}
+function lastMove() {
+    currentMove = totalMoves - 1;
+    drawMove();
+}
 function nextMove() {
     if (currentMove < totalMoves - 1)
         currentMove++;
