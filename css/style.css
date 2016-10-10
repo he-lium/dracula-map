@@ -88,6 +88,7 @@ input[type="text"] {
 }
 
 .locations {
+    font-family: monospace;
     font-size: 18px;
     color: white;
 }
@@ -101,4 +102,9 @@ input[type="text"] {
 
 #move-event {
     margin-bottom: 10px;
+}
+
+#raw-move {
+    font-family: monospace;
+    font-size: 20px;
 }
