@@ -42,6 +42,7 @@ var totalMoves : number = 0;
 var playHistory : Array<Array<number>> = [[], [], [], [], []];
 var playEvents : Array<string> = [];
 var currentMove = 0;
+var rawMoves : Array<string>;
 
 function drawMove() {
     drawMap();
@@ -87,10 +88,10 @@ function processMoves(raw : string) {
     let move : string;
     let p : Player;
     let location;
-    let movesArray : Array<string> = raw.split(" ");
+    rawMoves = raw.split(" ");
     let id;
     let eventStr = "";
-    movesArray.forEach(function (move : string, index : number) {
+    rawMoves.forEach(function (move : string, index : number) {
         switch(move[0]) {
             case "G": p = Player.Goldamine; break;
             case "S": p = Player.Seward; break;

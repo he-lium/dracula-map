@@ -98,3 +98,7 @@ input[type="text"] {
     color : black}
 .m {background-color: teal}
 .d {background-color: darkred}
+
+#move-event {
+    margin-bottom: 10px;
+}

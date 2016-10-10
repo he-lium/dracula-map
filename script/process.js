@@ -47,6 +47,7 @@ var totalMoves = 0;
 var playHistory = [[], [], [], [], []];
 var playEvents = [];
 var currentMove = 0;
+var rawMoves;
 function drawMove() {
     drawMap();
     stats.update();
@@ -89,10 +90,10 @@ function processMoves(raw) {
     let move;
     let p;
     let location;
-    let movesArray = raw.split(" ");
+    rawMoves = raw.split(" ");
     let id;
     let eventStr = "";
-    movesArray.forEach(function (move, index) {
+    rawMoves.forEach(function (move, index) {
         switch (move[0]) {
             case "G":
                 p = Player.Goldamine;
