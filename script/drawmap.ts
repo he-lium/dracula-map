@@ -92,7 +92,10 @@ function populateCities() {
         cities[i].id = i;
     }
     loadStatus++;
-    if (loadStatus >= 3) drawMap();
+    if (loadStatus >= 3) {
+        if (txtMoves.value != "") btnSubmitMoves.click();
+        else drawMap();
+    }
 }
 
 function parseCoords(e : Event) {
@@ -102,41 +105,53 @@ function parseCoords(e : Event) {
         cities[index].addCoords(element[0], element[1]);
     });
     loadStatus++;
-    if (loadStatus >= 3) drawMap();
+    if (loadStatus >= 3) {
+        if (txtMoves.value != "") btnSubmitMoves.click();
+        else drawMap();
+    }
 }
 
 function parseLinks(e : Event) {
     console.log("parseLinks");
     links = <Array<Link>> JSON.parse(link_request.responseText).links;
     loadStatus++;
-    if (loadStatus >= 3) drawMap();
+    if (loadStatus >= 3) {
+        if (txtMoves.value != "") btnSubmitMoves.click();
+        else drawMap();
+    }
 }
 
-var request = new XMLHttpRequest();
-request.open("GET", "data/places.json", true);
-request.onload = function (e) {
-    if (request.readyState === 4) {
-        if (request.status === 200) {
-            places_json = JSON.parse(request.responseText);
-            populateCities();
-        } else {
-            console.error(request.statusText);
+var request : XMLHttpRequest;
+var request1 : XMLHttpRequest;
+var link_request : XMLHttpRequest;
+
+function loadJSONs () {
+    request = new XMLHttpRequest();
+    request.open("GET", "data/places.json", true);
+    request.onload = function (e) {
+        if (request.readyState === 4) {
+            if (request.status === 200) {
+                places_json = JSON.parse(request.responseText);
+                populateCities();
+            } else {
+                console.error(request.statusText);
+            }
         }
-    }
-};
-request.onerror = function(e) {
-    console.error(request.statusText);
-};
-request.send(null);
+    };
+    request.onerror = function(e) {
+        console.error(request.statusText);
+    };
+    request.send(null);
 
-var request1 = new XMLHttpRequest();
-request1.open("GET", "data/coords.json", true);
-request1.onload = parseCoords;
-request1.onerror = function (e) { console.error(request1.statusText); };
-request1.send(null);
+    request1 = new XMLHttpRequest();
+    request1.open("GET", "data/coords.json", true);
+    request1.onload = parseCoords;
+    request1.onerror = function (e) { console.error(request1.statusText); };
+    request1.send(null);
 
-var link_request = new XMLHttpRequest();
-link_request.open("GET", "data/links.json", true);
-link_request.onload = parseLinks;
-link_request.onerror = function (e) { console.error(request1.statusText); };
-link_request.send(null);
+    link_request = new XMLHttpRequest();
+    link_request.open("GET", "data/links.json", true);
+    link_request.onload = parseLinks;
+    link_request.onerror = function (e) { console.error(request1.statusText); };
+    link_request.send(null);
+}

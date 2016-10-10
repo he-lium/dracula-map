@@ -44,9 +44,18 @@ txtMoves.onkeyup = function (event) {
         changed = true;
 };
 window.onload = function () {
-    modal.style.display = 'block';
-    txtMoves.focus();
-    changed = false;
+    let query = window.location.search;
+    if (query.substr(0, 6) == "?path=") {
+        let path = query.substr(6);
+        path = path.replace(new RegExp('%20', 'g'), ' ');
+        txtMoves.value = path;
+    }
+    else {
+        modal.style.display = 'block';
+        txtMoves.focus();
+        changed = false;
+    }
+    loadJSONs();
 };
 document.getElementById('next-move').onclick = nextMove;
 document.getElementById('prev-move').onclick = prevMove;
