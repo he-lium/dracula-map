@@ -98,8 +98,10 @@ function processMoves(raw : string) {
         }
         if (location[0] == 'D' && parseInt(location[1])) {
             id = playHistory[p][playHistory[p].length - parseInt(location[1])];
+            eventStr += " double tracked by " + location[1] + " to " + cities[id].abbrev;
         } else if (location == 'HI') {
             id = playHistory[p][playHistory[p].length - 1];
+            eventStr += " hid in " + cities[id].name;
         } else {
             id = cities.find((city) => city.abbrev == location).id;
             eventStr += " moved to " + cities[id].name;
