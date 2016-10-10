@@ -2,7 +2,7 @@ enum Player {Goldamine, Seward, VanHelsing, MinaHarker, Dracula}
 var playerSpans : Array<HTMLElement> = [
     document.getElementById('g-loc'),
     document.getElementById('s-loc'),
-    document.getElementById('v-loc'),
+    document.getElementById('h-loc'),
     document.getElementById('m-loc'),
     document.getElementById('d-loc')
 ]
@@ -71,6 +71,7 @@ function prevMove() {
 
 function processMoves(raw : string) {
     playHistory = [[], [], [], [], []];
+    playEvents = [];
     totalMoves = 0;
     currentMove = 0;
     let move : string;

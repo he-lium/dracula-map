@@ -9,7 +9,7 @@ var Player;
 var playerSpans = [
     document.getElementById('g-loc'),
     document.getElementById('s-loc'),
-    document.getElementById('v-loc'),
+    document.getElementById('h-loc'),
     document.getElementById('m-loc'),
     document.getElementById('d-loc')
 ];
@@ -75,6 +75,7 @@ function prevMove() {
 }
 function processMoves(raw) {
     playHistory = [[], [], [], [], []];
+    playEvents = [];
     totalMoves = 0;
     currentMove = 0;
     let move;
