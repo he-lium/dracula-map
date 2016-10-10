@@ -63,6 +63,25 @@ function drawMove() {
             playerSpans[i].innerText = "undefined";
         }
     }
+    // Draw Dracula's trail
+    if (currentMove > 4) {
+        let index = Math.floor(currentMove / 5) - 1;
+        context.beginPath();
+        context.strokeStyle = 'white';
+        let id = playHistory[4][index];
+        context.moveTo(cities[id].x, cities[id].y);
+        for (let i = 1; i < 6; i++) {
+            index--;
+            if (index < 0)
+                break;
+            id = playHistory[4][index];
+            context.lineTo(cities[id].x, cities[id].y);
+        }
+        context.lineWidth = 7;
+        context.setLineDash([3, 10]);
+        context.stroke();
+        context.setLineDash([0]);
+    }
 }
 function firstMove() {
     currentMove = 0;
@@ -114,14 +133,14 @@ function processMoves(raw) {
         }
         eventStr = move[0];
         location = move.substr(1, 2);
-        console.log(location);
+        // console.log(location);
         if (location == 'TP') {
             id = location = 'CD';
             eventStr += " teleported and";
         }
         if (location[0] == 'D' && parseInt(location[1])) {
             id = playHistory[p][playHistory[p].length - parseInt(location[1])];
-            eventStr += " double tracked by " + location[1] + " to " + cities[id].abbrev;
+            eventStr += " double tracked by " + location[1] + " to " + cities[id].name;
         }
         else if (location == 'HI') {
             id = playHistory[p][playHistory[p].length - 1];
@@ -134,7 +153,7 @@ function processMoves(raw) {
                 eventStr += " from " + cities[playHistory[p][playHistory[p].length - 1]].name;
         }
         playHistory[p].push(id);
-        console.log(eventStr);
+        // console.log(eventStr);
         playEvents.push(eventStr);
         totalMoves++;
     });
