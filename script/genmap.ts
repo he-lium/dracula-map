@@ -27,7 +27,7 @@ function getCanvasMousePos(canvas : HTMLCanvasElement, event : MouseEvent) {
     };
 }
 
-canvas.addEventListener('click', function (ev : MouseEvent) {
-    let mouse = getCanvasMousePos(canvas, ev);
-    drawPoint(mouse.x, mouse.y);
-});
+// canvas.addEventListener('click', function (ev : MouseEvent) {
+//     let mouse = getCanvasMousePos(canvas, ev);
+//     drawPoint(mouse.x, mouse.y);
+// });
