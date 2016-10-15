@@ -1,4 +1,4 @@
-enum Player {Goldamine, Seward, VanHelsing, MinaHarker, Dracula}
+enum Player {Godalming, Seward, VanHelsing, MinaHarker, Dracula}
 var playerSpans : Array<HTMLElement> = [
     document.getElementById('g-loc'),
     document.getElementById('s-loc'),
@@ -11,7 +11,7 @@ function drawPlayer(player : Player, cityID : number) {
     let x = cities[cityID].x;   
     let y = cities[cityID].y;
     switch (player) {
-        case Player.Goldamine: 
+        case Player.Godalming: 
             y -= 15;
             context.fillStyle = 'green';
             break;
@@ -111,7 +111,7 @@ function processMoves(raw : string) {
     let eventStr = "";
     rawMoves.forEach(function (move : string, index : number) {
         switch(move[0]) {
-            case "G": p = Player.Goldamine; break;
+            case "G": p = Player.Godalming; break;
             case "S": p = Player.Seward; break;
             case "H": p = Player.VanHelsing; break;
             case "M": p = Player.MinaHarker; break;
@@ -123,7 +123,7 @@ function processMoves(raw : string) {
         // console.log(location);
         if (location == 'TP') {
             id = location = 'CD';
-            eventStr += " teleported and"
+            eventStr += " teleported and";
         }
         if (location[0] == 'D' && parseInt(location[1])) {
             id = playHistory[p][playHistory[p].length - parseInt(location[1])];

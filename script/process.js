@@ -1,6 +1,6 @@
 var Player;
 (function (Player) {
-    Player[Player["Goldamine"] = 0] = "Goldamine";
+    Player[Player["Godalming"] = 0] = "Godalming";
     Player[Player["Seward"] = 1] = "Seward";
     Player[Player["VanHelsing"] = 2] = "VanHelsing";
     Player[Player["MinaHarker"] = 3] = "MinaHarker";
@@ -17,7 +17,7 @@ function drawPlayer(player, cityID) {
     let x = cities[cityID].x;
     let y = cities[cityID].y;
     switch (player) {
-        case Player.Goldamine:
+        case Player.Godalming:
             y -= 15;
             context.fillStyle = 'green';
             break;
@@ -115,7 +115,7 @@ function processMoves(raw) {
     rawMoves.forEach(function (move, index) {
         switch (move[0]) {
             case "G":
-                p = Player.Goldamine;
+                p = Player.Godalming;
                 break;
             case "S":
                 p = Player.Seward;
