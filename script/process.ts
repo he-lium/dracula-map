@@ -106,41 +106,46 @@ function processMoves(raw : string) {
     let move : string;
     let p : Player;
     let location;
-    rawMoves = raw.split(" ");
+    rawMoves = raw.trim().split(" ");
     let id;
     let eventStr = "";
-    rawMoves.forEach(function (move : string, index : number) {
-        switch(move[0]) {
-            case "G": p = Player.Godalming; break;
-            case "S": p = Player.Seward; break;
-            case "H": p = Player.VanHelsing; break;
-            case "M": p = Player.MinaHarker; break;
-            case "D": p = Player.Dracula; break;
-            default: break;
-        }
-        eventStr = move[0];
-        location = move.substr(1, 2);
-        // console.log(location);
-        if (location == 'TP') {
-            id = location = 'CD';
-            eventStr += " teleported and";
-        }
-        if (location[0] == 'D' && parseInt(location[1])) {
-            id = playHistory[p][playHistory[p].length - parseInt(location[1])];
-            eventStr += " double tracked by " + location[1] + " to " + cities[id].name;
-        } else if (location == 'HI') {
-            id = playHistory[p][playHistory[p].length - 1];
-            eventStr += " hid in " + cities[id].name;
-        } else {
-            id = cities.find((city) => city.abbrev == location).id;
-            eventStr += " moved to " + cities[id].name;
-            if (index > 4) eventStr += " from " + cities[playHistory[p][playHistory[p].length - 1]].name;
-        }
-        playHistory[p].push(id);
-        // console.log(eventStr);
-        playEvents.push(eventStr);
-        totalMoves++;
-    });
-    showStats();
-    drawMove();
+    try {
+        rawMoves.forEach(function (move : string, index : number) {
+            switch(move[0]) {
+                case "G": p = Player.Godalming; break;
+                case "S": p = Player.Seward; break;
+                case "H": p = Player.VanHelsing; break;
+                case "M": p = Player.MinaHarker; break;
+                case "D": p = Player.Dracula; break;
+                default: break;
+            }
+            eventStr = move[0];
+            location = move.substr(1, 2);
+            // console.log(location);
+            if (location == 'TP') {
+                id = location = 'CD';
+                eventStr += " teleported and";
+            }
+            if (location[0] == 'D' && parseInt(location[1])) {
+                id = playHistory[p][playHistory[p].length - parseInt(location[1])];
+                eventStr += " double tracked by " + location[1] + " to " + cities[id].name;
+            } else if (location == 'HI') {
+                id = playHistory[p][playHistory[p].length - 1];
+                eventStr += " hid in " + cities[id].name;
+            } else {
+                id = cities.find((city) => city.abbrev == location).id;
+                eventStr += " moved to " + cities[id].name;
+                if (index > 4) eventStr += " from " + cities[playHistory[p][playHistory[p].length - 1]].name;
+            }
+            playHistory[p].push(id);
+            // console.log(eventStr);
+            playEvents.push(eventStr);
+            totalMoves++;
+        });
+        showStats();
+        drawMove();
+        document.getElementById('error-msg').innerHTML = "";
+    } catch (e) {
+        document.getElementById('error-msg').innerHTML = "Error occured: invalid play path";
+    }
 }
