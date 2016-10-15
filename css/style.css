@@ -1,5 +1,7 @@
 body {
     font-family: 'Open Sans', sans-serif;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 #map {
@@ -107,4 +109,20 @@ input[type="text"] {
 #raw-move {
     font-family: monospace;
     font-size: 20px;
+}
+
+.buglink {
+    text-decoration: none;
+}
+
+.contact {
+    color: lightslategrey;
+    text-decoration: none;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+    padding-left: 20px;
 }
