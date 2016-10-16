@@ -111,13 +111,13 @@ input[type="text"] {
     font-size: 20px;
 }
 
-.buglink {
+.contact, .contact:visited {
+    color: lightslategrey;
     text-decoration: none;
 }
 
-.contact {
-    color: lightslategrey;
-    text-decoration: none;
+.contact:hover {
+    text-decoration: underline;
 }
 
 #error-msg {
@@ -125,6 +125,7 @@ input[type="text"] {
 }
 
 footer {
+    color: lightslategrey;
     position: absolute;
     bottom: 0;
     height: 30px;
