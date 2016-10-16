@@ -142,18 +142,25 @@ function loadJSONs () {
     };
     request.onerror = function(e) {
         console.error(request.statusText);
+        document.getElementById('error-msg').innerHTML = "Error: failed to load data/places.json";
     };
     request.send(null);
 
     request1 = new XMLHttpRequest();
     request1.open("GET", "data/coords.json", true);
     request1.onload = parseCoords;
-    request1.onerror = function (e) { console.error(request1.statusText); };
+    request1.onerror = function (e) {
+        console.error(request1.statusText);
+        document.getElementById('error-msg').innerHTML = "Error: failed to load data/coords.json"; 
+    };
     request1.send(null);
 
     link_request = new XMLHttpRequest();
     link_request.open("GET", "data/links.json", true);
     link_request.onload = parseLinks;
-    link_request.onerror = function (e) { console.error(request1.statusText); };
+    link_request.onerror = function (e) {
+        console.error(request1.statusText);
+        document.getElementById('error-msg').innerHTML = "Error: failed to load data/links.json";
+    };
     link_request.send(null);
 }
