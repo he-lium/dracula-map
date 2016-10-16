@@ -107,6 +107,14 @@ function drawMove() {
             let id = playHistory[i][idIndex];
             drawPlayer(i, id);
             playerSpans[i].innerText = cities[id].abbrev + " " + cities[id].name;
+            if (i == 4) {
+                if (id >= 71) {
+                    document.getElementById("drac-loc").className = "d_unknown";
+                }
+                else {
+                    document.getElementById("drac-loc").className = "d";
+                }
+            }
         }
         else {
             playerSpans[i].innerText = "undefined";
