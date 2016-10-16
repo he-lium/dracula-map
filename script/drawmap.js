@@ -28,24 +28,26 @@ class Link {
 }
 var places_json;
 var coords;
-var cities = Array(71);
+var cities = Array(73);
 var links;
 var loadStatus = 0;
-for (let i = 0; i < 71; i++)
+for (let i = 0; i < 73; i++)
     cities[i] = new City();
 function drawCity(city) {
-    if (city.type == PlaceType.Sea) {
-        context.fillStyle = "deepskyblue";
-    }
-    else {
+    if (city.id < 71) {
+        if (city.type == PlaceType.Sea) {
+            context.fillStyle = "deepskyblue";
+        }
+        else {
+            context.fillStyle = "black";
+        }
+        let x = Math.floor(city.x);
+        let y = Math.floor(city.y);
+        context.fillRect(x - 10, y - 10, 20, 20);
+        context.font = "16px serif";
         context.fillStyle = "black";
+        context.fillText(city.abbrev, x + 10, y - 10);
     }
-    let x = Math.floor(city.x);
-    let y = Math.floor(city.y);
-    context.fillRect(x - 10, y - 10, 20, 20);
-    context.font = "16px serif";
-    context.fillStyle = "black";
-    context.fillText(city.abbrev, x + 10, y - 10);
 }
 function drawLinks(type, c1, c2) {
     if (type == LinkType.Road) {
@@ -80,7 +82,7 @@ function populateCities() {
     if (!places_json)
         return;
     console.log("populateCities");
-    for (let i = 0; i < 71; i++) {
+    for (let i = 0; i < 73; i++) {
         let name = places_json.places[i].name;
         let abbrev = places_json.places[i].abbrev;
         let type_num = places_json.places[i].type;

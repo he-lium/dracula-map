@@ -1,5 +1,7 @@
 body {
     font-family: 'Open Sans', sans-serif;
+    /*margin-left: 0;
+    margin-right: 0;*/
 }
 
 #map {
@@ -107,4 +109,25 @@ input[type="text"] {
 #raw-move {
     font-family: monospace;
     font-size: 20px;
+}
+
+.contact, .contact:visited {
+    color: lightslategrey;
+    text-decoration: none;
+}
+
+.contact:hover {
+    text-decoration: underline;
+}
+
+#error-msg {
+    color: red;
+}
+
+footer {
+    color: lightslategrey;
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+    padding-left: 20px;
 }

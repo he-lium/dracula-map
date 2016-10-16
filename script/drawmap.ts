@@ -27,23 +27,25 @@ class Link {
 
 var places_json;
 var coords : Array<Array<number>>;
-var cities = Array<City>(71);
+var cities = Array<City>(73);
 var links : Array<Link>;
 var loadStatus = 0;
-for (let i = 0; i < 71; i++) cities[i] = new City();
+for (let i = 0; i < 73; i++) cities[i] = new City();
 
 function drawCity(city : City) {
-    if (city.type == PlaceType.Sea) {
-        context.fillStyle = "deepskyblue";
-    } else {
+    if (city.id < 71) { // Ignore unknown locations
+        if (city.type == PlaceType.Sea) {
+            context.fillStyle = "deepskyblue";
+        } else {
+            context.fillStyle = "black";
+        }
+        let x = Math.floor(city.x);
+        let y = Math.floor(city.y);
+        context.fillRect(x - 10, y - 10, 20, 20);
+        context.font = "16px serif";
         context.fillStyle = "black";
+        context.fillText(city.abbrev, x + 10, y - 10);
     }
-    let x = Math.floor(city.x);
-    let y = Math.floor(city.y);
-    context.fillRect(x - 10, y - 10, 20, 20);
-    context.font = "16px serif";
-    context.fillStyle = "black";
-    context.fillText(city.abbrev, x + 10, y - 10);
 }
 
 function drawLinks(type : LinkType, c1 : number, c2 : number) {
@@ -79,7 +81,7 @@ function drawMap() {
 function populateCities() {
     if (!places_json) return;
     console.log("populateCities");
-    for (let i = 0; i < 71; i++) {
+    for (let i = 0; i < 73; i++) {
         let name = places_json.places[i].name;
         let abbrev = places_json.places[i].abbrev;
         let type_num = places_json.places[i].type;
