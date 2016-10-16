@@ -40,6 +40,9 @@ function drawPlayer(player : Player, cityID : number, ghostTrail ?: number) {
     context.beginPath();
     context.arc(x, y, 13, 0, 2 * Math.PI, false);
     if (ghostTrail) {
+        context.fillStyle = 'white';
+        context.fill();
+        context.fillStyle = color;
         context.lineWidth = 2;
         context.stroke();
         context.font = "20px serif";
@@ -76,11 +79,12 @@ function drawMove() {
     if (currentMove > 4) {
         if (hiddenInfoMode) {
             let id : number;
-            index = Math.floor(currentMove / 5) - 1;
+            index = Math.floor(currentMove / 5) - 7;
             for (let i = 1; i < 6; i++) {
-                index--;
-                if (index < 0) break;
-                drawPlayer(Player.Dracula, playHistory[4][index], i);
+                index++;
+                if (index >= 0) {
+                    drawPlayer(Player.Dracula, playHistory[4][index], 6 - i);
+                }
             }
         } else {
             index = Math.floor(currentMove / 5) - 1;
