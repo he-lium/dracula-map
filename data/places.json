@@ -70,6 +70,8 @@
 		{"name" : "Venice", "abbrev" : "VE", "type" : 0},
 		{"name" : "Vienna", "abbrev" : "VI", "type" : 0},
 		{"name" : "Zagreb", "abbrev" : "ZA", "type" : 0},
-		{"name" : "Zurich", "abbrev" : "ZU", "type" : 0}
+		{"name" : "Zurich", "abbrev" : "ZU", "type" : 0},
+		{"name" : "unknown city", "abbrev" : "C?", "type" : 0},
+		{"name" : "unknown sea", "abbrev" : "S?", "type" : 1}
     ]
 }
