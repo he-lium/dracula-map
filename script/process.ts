@@ -64,17 +64,6 @@ function drawMove() {
 
     drawMap();
     stats.update();
-    for (let i = 0; i < 5; i++) {
-        if (currentMove >= i) {
-            let idIndex = Math.floor((currentMove - i) / 5);
-            // console.log(i, idIndex);
-            let id = playHistory[i][idIndex];
-            drawPlayer(i, id);
-            playerSpans[i].innerText = cities[id].abbrev + " " + cities[id].name;
-        } else {
-            playerSpans[i].innerText = "undefined";
-        }
-    }
     // Draw Dracula's trail
     if (currentMove > 4) {
         if (hiddenInfoMode) {
@@ -102,6 +91,18 @@ function drawMove() {
             context.setLineDash([3, 10])
             context.stroke();
             context.setLineDash([0]);
+        }
+    }
+
+    for (let i = 0; i < 5; i++) {
+        if (currentMove >= i) {
+            let idIndex = Math.floor((currentMove - i) / 5);
+            // console.log(i, idIndex);
+            let id = playHistory[i][idIndex];
+            drawPlayer(i, id);
+            playerSpans[i].innerText = cities[id].abbrev + " " + cities[id].name;
+        } else {
+            playerSpans[i].innerText = "undefined";
         }
     }
 }
