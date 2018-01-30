@@ -131,7 +131,7 @@ input[type="text"] {
 }
 
 footer {
-    color: lightslategrey;
+    color: black;
     position: absolute;
     bottom: 0;
     height: 30px;

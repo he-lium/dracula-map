@@ -41,14 +41,24 @@
             <div class="modal-content">
                 <div class="popup-header">
                     <span class="close" id="close">&times;</span>
-                    <h2>Load Moves</h2>
+                    <h2>控制台</h2>
                 </div>
                 <div class="popup-body">
-                    <p>Enter the moves sequence for the game</p>
-                    <input placeholder="GFL.... SFL.... HFL.... MFL...." type="text" id="input-moves" class="input-moves">
+                    <h2>谁是玩家?</h2>
+                    <input name="player" id="check-dracular" type="radio" value="0" checked>
+                    <label for="check-dracular">吸血鬼</label>
+                    <input name="player" id="check-hunter" value="1" type="radio">
+                    <label for="check-dracular">猎人</label>
+                    <hr/>
+                    <p>输入你玩的角色的游戏讯息:</p>
+                    <input placeholder="比如:FL" type="text" id="input-moves" class="input-moves">
                     <button id="submit-moves">Load</button>
+                    <hr/>
+                    本项目由: aka:he-lium 贡献 | 魔改:ぬるぽ | <a href="https://github.com/gta191977649/dracula-map">Fork me at Github</a> | Blog: <a href="http://blog.sparrow.moe">Sparrow Moe~</a>
                 </div>
+            
             </div>
+        
         </div>
         <footer>
             <a class="contact" href="mailto:dominic.he@student.unsw.edu.au">contact</a> | 

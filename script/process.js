@@ -1,4 +1,6 @@
 var Player;
+var PLAYER_DERACULAR = 0;
+var PLAYER_HUNTER = 1;
 (function (Player) {
     Player[Player["Godalming"] = 0] = "Godalming";
     Player[Player["Seward"] = 1] = "Seward";
@@ -139,7 +141,49 @@ function prevMove() {
         currentMove--;
     drawMove();
 }
+
+function processGame(seletedRole,gameMsg){
+    //判断如果用户屁也不输入的情况下
+    if(gameMsg == null || gameMsg.trim() == "") {
+        alert("我是猜不到你想要去哪里的，哼哼～");
+        modal.style.display = 'block';
+        txtMoves.focus();
+        return;
+    } 
+    switch(seletedRole){
+        case '0':{
+            //获取玩家输入的地点
+            let cityFullName = getCityNameFromGameMSG(gameMsg);
+            alert("你选择了玩吸血鬼,你手动输入的游戏信息: "+gameMsg+"去的地点是:"+cityFullName +"耶～");
+            /*
+                猎人的AI代码...
+            */
+            break;
+        }
+        case '1':{
+            let cityFullName = getCityNameFromGameMSG(gameMsg);
+            alert("你选择了玩吸血鬼,你手动输入的游戏信息: "+gameMsg+"去的地点是:"+cityFullName+"耶～");
+            //玩家手动输入的信息 -> gameMsg
+            /*
+
+            */
+
+            break;
+        }
+    }
+}
+
+function getCityNameFromGameMSG(shortName){
+    let city = cities.find((city) => city.abbrev == shortName);
+    if (!city) {
+        alert("哎，怎么找都找不到你输入的地点名称诶，在查查看好吗 =w= ");
+        modal.style.display = 'block';
+        txtMoves.focus();
+    }
+    return cities[city.id].name;
+}
 function processMoves(raw) {
+    
     playHistory = [[], [], [], [], []];
     playEvents = [];
     totalMoves = 0;
@@ -212,4 +256,5 @@ function processMoves(raw) {
         document.getElementById('error-msg').innerHTML = "Error occured: invalid play path";
     }
 }
+
 //# sourceMappingURL=process.js.map

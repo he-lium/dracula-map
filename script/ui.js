@@ -5,6 +5,9 @@ var txtMoves = document.getElementById('input-moves');
 var btnSubmitMoves = document.getElementById('submit-moves');
 var btnNextMove = document.getElementById('next-move');
 var btnPrevMove = document.getElementById('prev-move');
+//新增
+var radioPlayerSelection = document.getElementsByName('player');
+
 var changed = false;
 var stats = {
     div: document.getElementById('stats'),
@@ -17,10 +20,25 @@ var stats = {
         stats.rawMoveDisplay.innerText = rawMoves[currentMove];
     }
 };
+
+function getRadioBtnVar(radios)
+{
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            return radios[i].value;
+        }
+    }
+}
 function showStats() {
     stats.div.style.display = 'block';
 }
+function showModal(){
+    modal.style.display = 'block';
+    txtMoves.focus();
+}
+
 btnLoadMoves.onclick = function () {
+  
     modal.style.display = 'block';
     txtMoves.focus();
     changed = false;
@@ -33,12 +51,22 @@ window.onclick = function (event) {
         modal.style.display = 'none';
     }
 };
+//当按钮Load按下
 btnSubmitMoves.onclick = function () {
+    //alert("当Load按下")
     modal.style.display = 'none';
-    processMoves(txtMoves.value);
+    //获取玩家是谁?
+    var seletedRole = getRadioBtnVar(radioPlayerSelection);
+    console.log("Debug 选择的角色= " + seletedRole);
+    //获取手动输入的游戏信息
+    var playerGameMsg = txtMoves.value;
+    processGame(seletedRole,playerGameMsg);
+    //显示游戏讯息游戏信息
+    //processMoves(txtMoves.value);
 };
 txtMoves.onkeyup = function (event) {
     // console.log(event.keyCode);
+    
     event.preventDefault();
     if (event.keyCode == 13 && changed)
         btnSubmitMoves.click();
