@@ -282,7 +282,7 @@ function processGame()
     processMoves(GAME_MSG);
 
     console.log("GAMEMSG = " +GAME_MSG);
-    if(CURRENT_TURN > Player.Dracula){
+    if(CURRENT_TURN >= Player.Dracula){
         alert("回合结束");
         hideModal();
         CURRENT_TURN = 0;
