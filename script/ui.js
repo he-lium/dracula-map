@@ -5,8 +5,16 @@ var txtMoves = document.getElementById('input-moves');
 var btnSubmitMoves = document.getElementById('submit-moves');
 var btnNextMove = document.getElementById('next-move');
 var btnPrevMove = document.getElementById('prev-move');
+
+var btnPrevTurn = document.getElementById('prev-turn');
+var btnNextTurn = document.getElementById('next-turn');
+
 //新增
 var radioPlayerSelection = document.getElementsByName('player');
+var labelCurrent = document.getElementById('lb-currentPlayer');
+var labelGameMsg = document.getElementById('lb-gameMsg'); 
+var labelInputTitle = document.getElementById('tb_title'); 
+
 
 var changed = false;
 var stats = {
@@ -59,8 +67,8 @@ btnSubmitMoves.onclick = function () {
     var seletedRole = getRadioBtnVar(radioPlayerSelection);
     console.log("Debug 选择的角色= " + seletedRole);
     //获取手动输入的游戏信息
-    var playerGameMsg = txtMoves.value;
-    processGame(seletedRole,playerGameMsg);
+    //var playerGameMsg = txtMoves.value;
+    startGame(seletedRole);
     //显示游戏讯息游戏信息
     //processMoves(txtMoves.value);
 };

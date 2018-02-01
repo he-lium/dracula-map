@@ -12,14 +12,19 @@
         <canvas id="map" width="1200" height="800">HTML5 browser needed</canvas>
         <div id="panel">
             <h1>Dracula Map Viewer</h1>
+            <p>
+                <button id="next-turn">nexTurn</button>
+            </p>
             <noscript><h4>Requires JavaScript</h4></noscript>
             <div id="stats">
+                <p id="lb-gameMsg"></p>
                 <h3 id="round-move">Round 0/0, Move 0/0</h3>
                 <p>
                     Moves
                     <button id="prev-move">&lt;&lt;</button>
                     <button id="next-move">&gt;&gt;</button>
                 </p>
+               
                 <p class="locations">
                     <span class="g">G is at <span id="g-loc"></span></span><br>
                     <span class="s">S is at <span id="s-loc"></span></span><br>
@@ -27,6 +32,7 @@
                     <span class="m">M is at <span id="m-loc"></span></span><br>
                     <span id="drac-loc" class="d">D is at <span id="d-loc"></span></span><br>
                 </p>
+                
                 <span id="raw-move">.......</span>
                 <h4 id="move-event"></h4>
             </div>
@@ -41,7 +47,7 @@
             <div class="modal-content">
                 <div class="popup-header">
                     <span class="close" id="close">&times;</span>
-                    <h2>控制台</h2>
+                    <h2>控制台 - <span id="lb-currentPlayer"></span></h2>
                 </div>
                 <div class="popup-body">
                     <h2>谁是玩家?</h2>
@@ -50,8 +56,8 @@
                     <input name="player" id="check-hunter" value="1" type="radio">
                     <label for="check-dracular">猎人</label>
                     <hr/>
-                    <p>输入你玩的角色的游戏讯息:</p>
-                    <input placeholder="比如:FL" type="text" id="input-moves" class="input-moves">
+                    <p id="tb_title">输入你玩的角色的游戏讯息:</p>
+                    <input placeholder="比如:FL" value="GFL.... SFL.... HFL.... MFL...." type="text" id="input-moves" class="input-moves">
                     <button id="submit-moves">Load</button>
                     <hr/>
                     本项目由: aka:he-lium 贡献 | 魔改:ぬるぽ | <a href="https://github.com/gta191977649/dracula-map">Fork me at Github</a> | Blog: <a href="http://blog.sparrow.moe">Sparrow Moe~</a>

@@ -1,6 +1,8 @@
 var Player;
-var PLAYER_DERACULAR = 0;
-var PLAYER_HUNTER = 1;
+var PLAYER_ROLE = null;
+var CURRENT_TURN = 0;
+var GAME_MSG = "";
+
 (function (Player) {
     Player[Player["Godalming"] = 0] = "Godalming";
     Player[Player["Seward"] = 1] = "Seward";
@@ -68,6 +70,7 @@ var currentMove = 0;
 var rawMoves;
 var hiddenInfoMode;
 function drawMove() {
+    //alert(currentMove);
     let index;
     drawMap();
     stats.update();
@@ -142,47 +145,110 @@ function prevMove() {
     drawMove();
 }
 
-function processGame(seletedRole,gameMsg){
+function startGame(seletedRole){
+    //alert("s");
+    PLAYER_ROLE = seletedRole;
+    processGame();
+}
+function processGame()
+{
+    switch(PLAYER_ROLE){
+        case '0':{ //吸血鬼    
+            if(CURRENT_TURN == Player.Dracula){
+                
+                //获取玩家输入的地点
+                let locShortName = txtMoves.value;
+                let gameMsg = generateGameMsg(CURRENT_TURN,locShortName);
+                //alert("吸血鬼地点= ",gameMsg);
+                GAME_MSG += gameMsg;
+            }else{ //轮到吸血鬼AI
+                //因为没有AI代码所以直接获取游戏信息= =
+                GAME_MSG += txtMoves.value;
+                //GAME_MSG+=
+            }
+        
+            break;
+        }
+        case '1':{
+        
+            if(CURRENT_TURN < Player.Dracula) { //轮到猎人
+                
+                let locShortName = txtMoves.value;
+                let gameMsg = generateGameMsg(CURRENT_TURN,locShortName);
+                alert("吸血鬼的生成的游戏讯息:"+gameMsg);
+            }
+            else { //猎人部分AI
+                //因为没有AI代码所以直接获取游戏信息= =
+                GAME_MSG += txtMoves.value;
+            }
+            break;
+        }
+        //递增Turn
+        CURRENT_TURN++;
+        if(CURRENT_TURN == Player.Dracula){
+            alert("回合结束");
+            CURRENT_TURN = 0;
+            return;
+        }
+    }
+}
+//检测要去的地点短名
+function isMoveMsgVaild(locationShortName){
+    let moveLocation = locationShortName;
     //判断如果用户屁也不输入的情况下
-    if(gameMsg == null || gameMsg.trim() == "") {
+    if(moveLocation == null || moveLocation.trim() == "") {
         alert("我是猜不到你想要去哪里的，哼哼～");
         modal.style.display = 'block';
         txtMoves.focus();
         return;
     } 
-    switch(seletedRole){
-        case '0':{
-            //获取玩家输入的地点
-            let cityFullName = getCityNameFromGameMSG(gameMsg);
-            alert("你选择了玩吸血鬼,你手动输入的游戏信息: "+gameMsg+"去的地点是:"+cityFullName +"耶～");
-            /*
-                猎人的AI代码...
-            */
-            break;
-        }
-        case '1':{
-            let cityFullName = getCityNameFromGameMSG(gameMsg);
-            alert("你选择了玩吸血鬼,你手动输入的游戏信息: "+gameMsg+"去的地点是:"+cityFullName+"耶～");
-            //玩家手动输入的信息 -> gameMsg
-            /*
-
-            */
-
-            break;
-        }
-    }
-}
-
-function getCityNameFromGameMSG(shortName){
-    let city = cities.find((city) => city.abbrev == shortName);
-    if (!city) {
+    let cityFullName = getCityNameFromGameMSG(locationShortName);
+    if(!cityFullName){
         alert("哎，怎么找都找不到你输入的地点名称诶，在查查看好吗 =w= ");
         modal.style.display = 'block';
         txtMoves.focus();
     }
+    return true;
+}
+//生成游戏讯息片段
+function generateGameMsg(currentTurn,locationShortName){
+    
+    /*
+        猎人:
+            [第一个字母是玩家名字缩写][后面两位代表地点缩写][后面三位，如果出现T,扣1点血，如果出现V，不扣血，如果出现D,猎人扣4点血，并且吸血鬼扣10点血]
+        吸血鬼:
+            [第一个字母玩家缩写][后面两位代表地点缩写][这两位字符不用管][如果出现V,全局扣13分]
+    */
+    //获取玩家首字母
+    let firstCharactor = getPlayerCharacterNameByTurn(currentTurn);
+    if(!firstCharactor) return alert("貌似你输入了一个奇怪的游戏轮数,我给你看看~ \n"+currentTurn);
+    //获取玩家操作的角色要去的地方
+    if(!isMoveMsgVaild(locationShortName)) return;
+    let wishedToMove = locationShortName;
+
+    let gameMsg = firstCharactor  + wishedToMove + ".....";
+    //Debug代码
+    alert("生成的游戏讯息是:"+gameMsg);
+}
+//根据现在的游戏轮数生成游戏讯息的第一个首字母
+function getPlayerCharacterNameByTurn(currentTurn){
+    switch(currentTurn){
+        case Player.Godalming: return "G";
+        case Player.Seward: return "S";
+        case Player.VanHelsing: return "H";
+        case Player.MinaHarker: return "M";
+        case Player.Dracula: return "D";
+        default: return null;
+    }
+}
+function getCityNameFromGameMSG(shortName){
+    let city = cities.find((city) => city.abbrev == shortName);
+    if(!city) return null;
     return cities[city.id].name;
 }
 function processMoves(raw) {
+    //更新游戏讯息绘制:
+    labelGameMsg.innerHTML = "目前游戏信息: " + raw;
     
     playHistory = [[], [], [], [], []];
     playEvents = [];
@@ -225,7 +291,7 @@ function processMoves(raw) {
                 eventStr += " teleported and";
             }
             if (location[0] == 'D' && parseInt(location[1])) {
-                id = playHistory[p][playHistory[p].length - parseInt(location[1])];
+                id = playHistory[p][ playHistory[p].length - parseInt(location[1]) ];
                 eventStr += " double tracked by " + location[1] + " to " + cities[id].name;
             }
             else if (location == 'HI') {
@@ -247,6 +313,9 @@ function processMoves(raw) {
             // console.log(eventStr);
             playEvents.push(eventStr);
             totalMoves++;
+            //一次全部给我画完
+            nextMove();
+            
         });
         showStats();
         drawMove();
