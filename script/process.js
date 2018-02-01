@@ -450,7 +450,7 @@ function processMoves(raw) {
             else {
                 let currCity = cities.find((city) => city.abbrev == location);
                 if (!currCity)
-                    throw new Error("Invalid location abbreviation " + location);
+                    throw new Error("无效的地点名称: " + location);
                 id = currCity.id;
                 eventStr += " moved to " + cities[id].name;
                 if (index > 4)
@@ -471,7 +471,7 @@ function processMoves(raw) {
         document.getElementById('error-msg').innerHTML = "";
     }
     catch (e) {
-        document.getElementById('error-msg').innerHTML = "Error occured: invalid play path";
+        document.getElementById('error-msg').innerHTML = "粗错啦: 遇到了奇怪的游戏讯息Orz <br/>"+ "exception on " + e.message;
     }
 }
 

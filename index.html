@@ -1,20 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-cn">
     <head>
         <title>Dracula Viewer</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Dominic He">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      
         <link href="css/style.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
         <canvas id="map" width="1200" height="800">HTML5 browser needed</canvas>
-        <div id="panel">
-            <h1>Dracula Map Viewer</h1>
+       
+
+        <div >
+            
             <h3>目前生成的游戏讯息(DEBUG用)</h3><p id="lb-gameMsg"></p>
             <p>
-                <button id="next-turn">nexTurn</button>
+          
             </p>
             <noscript><h4>Requires JavaScript</h4></noscript>
             <div id="stats">
@@ -22,8 +25,8 @@
                 <h3 id="round-move">Round 0/0, Move 0/0</h3>
                 <p>
                     Moves
-                    <button id="prev-move">&lt;&lt;</button>
-                    <button id="next-move">&gt;&gt;</button>
+                    <button class="btn btn-light" id="prev-move">&lt;&lt;</button>
+                    <button class="btn btn-light" id="next-move">&gt;&gt;</button>
                 </p>
                
                 <p class="locations">
@@ -37,12 +40,10 @@
                 <span id="raw-move">.......</span>
                 <h4 id="move-event"></h4>
             </div>
-            <button id="change">>>显示控制台 <<</button>
+            <button class="btn btn-primary" id="change">>>显示控制台 <<</button>
             <p id="error-msg"></p>
-            <p>
-                
-            </p>
         </div>
+
         <div id="popup" class="popup">
             <!--popup input content-->
             <div class="modal-content">
@@ -51,38 +52,49 @@
                     <h2>控制台 - <span id="lb-currentPlayer"></span></h2>
                 </div>
                 <div class="popup-body">
-                    <h2>谁是玩家?</h2>
-                    <input name="player" id="check-dracular" type="radio" value="0" checked>
-                    <label for="check-dracular">吸血鬼</label>
-                    <input name="player" id="check-hunter" value="1" type="radio">
-                    <label for="check-dracular">猎人</label>
-                    <button id="btn-gameStart">开始</button>
+                    <h3>谁是玩家?</h3>
+                    <div class="form-check">
+                        <input name="player" id="check-dracular" type="radio" value="0" checked>
+                        <label for="check-dracular">吸血鬼</label>
+                        <input name="player" id="check-hunter" value="1" type="radio">
+                        <label for="check-dracular">猎人</label>
+                        <button class="btn btn-outline-primary btn-sm" id="btn-gameStart">开始</button>
+                    </div>
+               
+                    
+                
                     <hr/>
                     <div id="gameinfoEnter">
-                        <p id="tb_title">输入你玩的角色的游戏讯息:</p>
-                        <input placeholder="比如:FL"  type="text" id="input-moves" class="input-moves">
-                        <button id="submit-moves" style="display:none;">Load</button> 
-                        <button id="comfim-move">确认</button>
-
+                        <p id="tb_title">输入你玩的角色的要去的地方简写 (注因为尚未完成AI部分的代码,所以如果轮到AI玩的时候请手动输入完整的游戏讯息):</p>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="比如:FL"  type="text" id="input-moves">
+                            <button id="submit-moves" style="display:none;">Load</button> 
+                        </div>  
+                        <button class="btn btn-outline-primary mt-3" id="comfim-move">确认</button>
                     </div>
-                    <hr/>
+                 
                     本项目由: aka:he-lium 贡献 | 魔改:ぬるぽ | <a href="https://github.com/gta191977649/dracula-map">Fork me at Github</a> | Blog: <a href="http://blog.sparrow.moe">Sparrow Moe~</a>
+                    <footer>
+                        <a  href="mailto:dominic.he@student.unsw.edu.au">contact</a> | 
+                        <a  href="https://github.com/he-lium/dracula-map/issues/">
+                            <span title="Please restrict to urgent bugs">
+                                report a bug
+                            </span>
+                        </a>
+                    </footer>
                 </div>
             
             </div>
-        
+ 
+            
+            
+            
         </div>
-        <footer>
-            <a class="contact" href="mailto:dominic.he@student.unsw.edu.au">contact</a> | 
-            <a class="contact" href="https://github.com/he-lium/dracula-map/issues/">
-                <span title="Please restrict to urgent bugs">
-                    report a bug
-                </span>
-            </a>
-        </footer>
+       
         <script src="script/genmap.js"></script>
         <script src="script/drawmap.js"></script>
         <script src="script/process.js"></script>
         <script src="script/ui.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
     </body>
 </html>
