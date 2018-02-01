@@ -1,66 +1,99 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-cn">
     <head>
-        <title>Dracula Viewer</title>
+        <title>Dracula Viewer - 魔改版</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Dominic He">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      
         <link href="css/style.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
         <canvas id="map" width="1200" height="800">HTML5 browser needed</canvas>
-        <div id="panel">
-            <h1>Dracula Map Viewer</h1>
+       
+
+        <div >
+            <h1 class="text-primary">Dracula Map Viewer (魔改版)</h1>
+            <h5>目前生成的游戏讯息(DEBUG用):</h5><p id="lb-gameMsg"></p>
+        
             <noscript><h4>Requires JavaScript</h4></noscript>
             <div id="stats">
+                
                 <h3 id="round-move">Round 0/0, Move 0/0</h3>
                 <p>
                     Moves
-                    <button id="prev-move">&lt;&lt;</button>
-                    <button id="next-move">&gt;&gt;</button>
+                    <button class="btn btn-light" id="prev-move">&lt;&lt;</button>
+                    <button class="btn btn-light" id="next-move">&gt;&gt;</button>
                 </p>
+               
                 <p class="locations">
-                    <span class="g">G is at <span id="g-loc"></span></span><br>
-                    <span class="s">S is at <span id="s-loc"></span></span><br>
-                    <span class="h">H is at <span id="h-loc"></span></span><br>
-                    <span class="m">M is at <span id="m-loc"></span></span><br>
-                    <span id="drac-loc" class="d">D is at <span id="d-loc"></span></span><br>
+                    <span class="badge badge-success">G is at <span id="g-loc"></span></span><br>
+                    <span class="badge badge-secondary">S is at <span id="s-loc"></span></span><br>
+                    <span class="badge badge-warning">H is at <span id="h-loc"></span></span><br>
+                    <span class="badge badge-info">M is at <span id="m-loc"></span></span><br>
+                    <span  id="drac-loc" class="badge badge-danger">D is at <span id="d-loc"></span></span><br>
                 </p>
+                
                 <span id="raw-move">.......</span>
                 <h4 id="move-event"></h4>
             </div>
-            <button id="change">Load Moves</button>
+            <button class="btn btn-primary" id="change">>>显示控制台 <<</button>
             <p id="error-msg"></p>
-            <p>
-                
-            </p>
         </div>
+
         <div id="popup" class="popup">
             <!--popup input content-->
             <div class="modal-content">
                 <div class="popup-header">
                     <span class="close" id="close">&times;</span>
-                    <h2>Load Moves</h2>
+                    <h2>控制台 - <span id="lb-currentPlayer"></span></h2>
                 </div>
                 <div class="popup-body">
-                    <p>Enter the moves sequence for the game</p>
-                    <input placeholder="GFL.... SFL.... HFL.... MFL...." type="text" id="input-moves" class="input-moves">
-                    <button id="submit-moves">Load</button>
+                    <h3>要玩啥角色呢 =w=</h3>
+                    <div class="form-check">
+                        <input name="player" id="check-dracular" type="radio" value="0" checked>
+                        <label for="check-dracular">吸血鬼</label>
+                        <input name="player" id="check-hunter" value="1" type="radio">
+                        <label for="check-dracular">猎人</label>
+                        <button class="btn btn-outline-primary btn-sm" id="btn-gameStart">开始</button>
+                    </div>
+               
+                    
+                
+                    <hr/>
+                    <div id="gameinfoEnter">
+                        <p id="tb_title">输入你玩的角色的要去的地方简写 (注因为尚未完成AI部分的代码,所以如果轮到AI玩的时候请手动输入完整的游戏讯息):</p>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="比如:FL"  type="text" id="input-moves">
+                            <button id="submit-moves" style="display:none;">Load</button> 
+                        </div>  
+                        <button class="btn btn-outline-primary mt-3" id="comfim-move">确认</button>
+                    </div>
+                 
+                    本项目由: <span class="text-primary">he-lium</span> 贡献 | 魔改By: ぬるぽ | <a href="https://github.com/gta191977649/dracula-map">Fork me at Github</a> | Blog: <a href="http://blog.sparrow.moe">禾雀飞翔~</a>
+                    <footer>
+                        联系原作者:
+                        <a  href="mailto:dominic.he@student.unsw.edu.au">这里</a> | 
+                        <a  href="https://github.com/he-lium/dracula-map/issues/">
+                            <span title="Please restrict to urgent bugs">
+                                给原作者抱怨BUG
+                            </span>
+                        </a>
+                    </footer>
                 </div>
+            
             </div>
+ 
+            
+            
+            
         </div>
-        <footer>
-            <a class="contact" href="mailto:dominic.he@student.unsw.edu.au">contact</a> | 
-            <a class="contact" href="https://github.com/he-lium/dracula-map/issues/">
-                <span title="Please restrict to urgent bugs">
-                    report a bug
-                </span>
-            </a>
-        </footer>
+       
         <script src="script/genmap.js"></script>
         <script src="script/drawmap.js"></script>
         <script src="script/process.js"></script>
         <script src="script/ui.js"></script>
+        
     </body>
 </html>
