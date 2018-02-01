@@ -4,6 +4,10 @@ body {
     margin-right: 0;*/
 }
 
+/* 默认影藏 */
+#gameinfoEnter{
+    display: none;
+}
 #map {
     float: left;
     background-color: floralwhite;

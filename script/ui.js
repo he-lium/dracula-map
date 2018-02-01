@@ -14,7 +14,9 @@ var radioPlayerSelection = document.getElementsByName('player');
 var labelCurrent = document.getElementById('lb-currentPlayer');
 var labelGameMsg = document.getElementById('lb-gameMsg'); 
 var labelInputTitle = document.getElementById('tb_title'); 
-
+var btnStart = document.getElementById('btn-gameStart');
+var inputArea = document.getElementById('gameinfoEnter');
+var btnComfimMove = document.getElementById('comfim-move');
 
 var changed = false;
 var stats = {
@@ -43,8 +45,31 @@ function showStats() {
 function showModal(){
     modal.style.display = 'block';
     txtMoves.focus();
+    
+    
 }
-
+function hideModal(){
+    modal.style.display = 'none';
+}
+function showInputMove(){
+    inputArea.style.display = 'block';
+}
+//当角色选择玩后，开始
+btnStart.onclick = function() {
+    hideModal();
+    //获取玩家是谁?
+    var seletedRole = getRadioBtnVar(radioPlayerSelection);
+    console.log("Debug 选择的角色= " + seletedRole);
+    //获取手动输入的游戏信息
+    //var playerGameMsg = txtMoves.value;
+    startGame(seletedRole);
+};
+//没一轮确认MOVE的讯息
+btnComfimMove.onclick = function (){
+ 
+    processGame();
+    txtMoves.value = ""; //清掉文本框的字...
+};
 btnLoadMoves.onclick = function () {
   
     modal.style.display = 'block';
@@ -77,7 +102,8 @@ txtMoves.onkeyup = function (event) {
     
     event.preventDefault();
     if (event.keyCode == 13 && changed)
-        btnSubmitMoves.click();
+        //btnSubmitMoves.click(); 修改为我自己定义的确认
+        btnComfimMove.click();
     else if (event.keyCode == 27)
         modal.style.display = 'none';
     else

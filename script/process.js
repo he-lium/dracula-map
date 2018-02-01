@@ -1,5 +1,8 @@
 var Player;
 var PLAYER_ROLE = null;
+var PLAYER_ROLE_DRACULAR = 0;
+var PLAYER_ROLE_HUNER = 1;
+
 var CURRENT_TURN = 0;
 var GAME_MSG = "";
 
@@ -147,11 +150,150 @@ function prevMove() {
 
 function startGame(seletedRole){
     //alert("s");
+    //禁用掉开始按钮
+    btnStart.disabled = true;
     PLAYER_ROLE = seletedRole;
-    processGame();
+    CURRENT_TURN = 0;
+    labelCurrent.innerText = disPlayTurnInfo(CURRENT_TURN,PLAYER_ROLE);
+    showInputMove();
+    showModal();
+    
+
+    //processGame()
+}
+function disPlayTurnInfo(currentTurn,playerRole){
+    console.log("Display turn= "  + currentTurn);
+    switch(currentTurn){
+        case Player.Godalming:
+            return (playerRole == PLAYER_ROLE_HUNER ? "现在轮到你玩了哦~ - " : "现在轮到AI玩了哦~ - ") + " Player.Godalming (猎人1)";
+        case Player.Seward:
+            return (playerRole == PLAYER_ROLE_HUNER ? "现在轮到你玩了哦~ - " : "现在轮到AI玩了哦~ - ") + " Player.Seward (猎人2)";
+        case Player.VanHelsing:
+            return (playerRole == PLAYER_ROLE_HUNER ? "现在轮到你玩了哦~ - " : "现在轮到AI玩了哦~ - ") + " Player.VanHelsing (猎人3)";
+        case Player.MinaHarker:
+            return (playerRole == PLAYER_ROLE_HUNER ? "现在轮到你玩了哦~ - " : "现在轮到AI玩了哦~ - ") + " Player.MinaHarker (猎人4)";
+        case Player.Dracula:
+            return (playerRole == PLAYER_ROLE_DRACULAR ? "现在轮到你玩了哦~ - " : "现在轮到AI玩了哦~ - ") + " Player.Dracula (吸血鬼)";
+        default:
+            return "我不知道现在是谁玩啦~都是因为你输入了一个奇怪的数字...(Execpetion on currentTurn = " + currentTurn + ")";
+    }
 }
 function processGame()
 {
+
+    console.log("processGame exec");
+    //UI轮数讯息显示:
+
+    //如果玩吸血鬼
+    if(PLAYER_ROLE == PLAYER_ROLE_DRACULAR){
+        switch(CURRENT_TURN){
+            //轮到猎人玩的时候 ...
+            //下面case应该执行AI代码
+            case Player.Godalming:{
+                //应该改成 += AI生成的代码
+                GAME_MSG += txtMoves.value.toUpperCase() + " ";
+
+                break;
+            }
+            case Player.Seward:{
+                //应该改成 += AI生成的代码
+                GAME_MSG += txtMoves.value.toUpperCase() + " ";
+                break;
+            }
+            case Player.VanHelsing:{
+                //应该改成 += AI生成的代码
+                GAME_MSG += txtMoves.value.toUpperCase() + " ";
+                break;
+            }
+            case Player.MinaHarker:{
+                //应该改成 += AI生成的代码
+                GAME_MSG += txtMoves.value.toUpperCase() + " ";
+                break;
+            }
+            case Player.Dracula:{
+
+                //根据玩家输入的地点生成游戏信息
+                if(!isMoveMsgVaild(txtMoves.value.toUpperCase())) {
+                    showModal();
+                    return;
+                }
+                let gameMsg = generateGameMsg(CURRENT_TURN,txtMoves.value.toUpperCase());
+                GAME_MSG += gameMsg;
+                break;
+            }
+        }
+        
+    }
+    //如果是玩猎人
+    else if(PLAYER_ROLE == PLAYER_ROLE_HUNER){
+        switch(CURRENT_TURN){
+            case Player.Dracula:{
+                //应该 += AI生成的代码 ...
+                GAME_MSG += txtMoves.value.toUpperCase();
+                break;
+            }
+            case Player.Godalming:{
+
+                //根据玩家输入的地点生成游戏信息
+                if(!isMoveMsgVaild(txtMoves.value.toUpperCase())) {
+                    showModal();
+                    return;
+                }
+                let gameMsg = generateGameMsg(CURRENT_TURN,txtMoves.value.toUpperCase());
+                GAME_MSG += gameMsg + " ";
+
+                break;
+            }
+            case Player.Seward:{
+                //根据玩家输入的地点生成游戏信息
+                if(!isMoveMsgVaild(txtMoves.value.toUpperCase())) {
+                    showModal();
+                    return;
+                }
+                let gameMsg = generateGameMsg(CURRENT_TURN,txtMoves.value.toUpperCase());
+                GAME_MSG += gameMsg + " ";
+                break;
+            }
+            case Player.VanHelsing:{
+                //根据玩家输入的地点生成游戏信息
+                if(!isMoveMsgVaild(txtMoves.value.toUpperCase())) {
+                    showModal();
+                    return;
+                }
+                let gameMsg = generateGameMsg(CURRENT_TURN,txtMoves.value.toUpperCase());
+                GAME_MSG += gameMsg + " ";
+                break;
+            }
+            case Player.MinaHarker:{
+                //根据玩家输入的地点生成游戏信息
+                if(!isMoveMsgVaild(txtMoves.value.toUpperCase())) {
+                    showModal();
+                    return;
+                }
+                let gameMsg = generateGameMsg(CURRENT_TURN,txtMoves.value.toUpperCase());
+                GAME_MSG += gameMsg + " ";
+                break;
+            }
+        }
+    }
+
+    
+    //更新地图绘制
+    processMoves(GAME_MSG);
+
+    console.log("GAMEMSG = " +GAME_MSG);
+    if(CURRENT_TURN > Player.Dracula){
+        alert("回合结束");
+        hideModal();
+        CURRENT_TURN = 0;
+        return;
+    }
+    
+    CURRENT_TURN++;
+    console.log("TURN= " +CURRENT_TURN);
+    labelCurrent.innerText = disPlayTurnInfo(CURRENT_TURN,PLAYER_ROLE);
+
+    /*
     switch(PLAYER_ROLE){
         case '0':{ //吸血鬼    
             if(CURRENT_TURN == Player.Dracula){
@@ -161,6 +303,7 @@ function processGame()
                 let gameMsg = generateGameMsg(CURRENT_TURN,locShortName);
                 //alert("吸血鬼地点= ",gameMsg);
                 GAME_MSG += gameMsg;
+                
             }else{ //轮到吸血鬼AI
                 //因为没有AI代码所以直接获取游戏信息= =
                 GAME_MSG += txtMoves.value;
@@ -180,17 +323,20 @@ function processGame()
             else { //猎人部分AI
                 //因为没有AI代码所以直接获取游戏信息= =
                 GAME_MSG += txtMoves.value;
+               
             }
             break;
         }
         //递增Turn
         CURRENT_TURN++;
+        console.log("GAMEMSG = " +GAME_MSG);
         if(CURRENT_TURN == Player.Dracula){
             alert("回合结束");
             CURRENT_TURN = 0;
             return;
         }
     }
+    */
 }
 //检测要去的地点短名
 function isMoveMsgVaild(locationShortName){
@@ -198,15 +344,14 @@ function isMoveMsgVaild(locationShortName){
     //判断如果用户屁也不输入的情况下
     if(moveLocation == null || moveLocation.trim() == "") {
         alert("我是猜不到你想要去哪里的，哼哼～");
-        modal.style.display = 'block';
-        txtMoves.focus();
-        return;
+
+        return false;
     } 
     let cityFullName = getCityNameFromGameMSG(locationShortName);
     if(!cityFullName){
         alert("哎，怎么找都找不到你输入的地点名称诶，在查查看好吗 =w= ");
-        modal.style.display = 'block';
-        txtMoves.focus();
+
+        return false;
     }
     return true;
 }
@@ -221,14 +366,18 @@ function generateGameMsg(currentTurn,locationShortName){
     */
     //获取玩家首字母
     let firstCharactor = getPlayerCharacterNameByTurn(currentTurn);
-    if(!firstCharactor) return alert("貌似你输入了一个奇怪的游戏轮数,我给你看看~ \n"+currentTurn);
+    if(!firstCharactor){
+        alert("貌似你输入了一个奇怪的游戏轮数,我给你看看~ \n"+currentTurn);
+        return;
+    }   
     //获取玩家操作的角色要去的地方
-    if(!isMoveMsgVaild(locationShortName)) return;
+  
     let wishedToMove = locationShortName;
 
     let gameMsg = firstCharactor  + wishedToMove + ".....";
     //Debug代码
-    alert("生成的游戏讯息是:"+gameMsg);
+    console.log("生成的游戏讯息是:"+gameMsg);
+    return gameMsg;
 }
 //根据现在的游戏轮数生成游戏讯息的第一个首字母
 function getPlayerCharacterNameByTurn(currentTurn){

@@ -12,12 +12,13 @@
         <canvas id="map" width="1200" height="800">HTML5 browser needed</canvas>
         <div id="panel">
             <h1>Dracula Map Viewer</h1>
+            <h3>目前生成的游戏讯息(DEBUG用)</h3><p id="lb-gameMsg"></p>
             <p>
                 <button id="next-turn">nexTurn</button>
             </p>
             <noscript><h4>Requires JavaScript</h4></noscript>
             <div id="stats">
-                <p id="lb-gameMsg"></p>
+                
                 <h3 id="round-move">Round 0/0, Move 0/0</h3>
                 <p>
                     Moves
@@ -36,7 +37,7 @@
                 <span id="raw-move">.......</span>
                 <h4 id="move-event"></h4>
             </div>
-            <button id="change">Load Moves</button>
+            <button id="change">>>显示控制台 <<</button>
             <p id="error-msg"></p>
             <p>
                 
@@ -55,10 +56,15 @@
                     <label for="check-dracular">吸血鬼</label>
                     <input name="player" id="check-hunter" value="1" type="radio">
                     <label for="check-dracular">猎人</label>
+                    <button id="btn-gameStart">开始</button>
                     <hr/>
-                    <p id="tb_title">输入你玩的角色的游戏讯息:</p>
-                    <input placeholder="比如:FL" value="GFL.... SFL.... HFL.... MFL...." type="text" id="input-moves" class="input-moves">
-                    <button id="submit-moves">Load</button>
+                    <div id="gameinfoEnter">
+                        <p id="tb_title">输入你玩的角色的游戏讯息:</p>
+                        <input placeholder="比如:FL"  type="text" id="input-moves" class="input-moves">
+                        <button id="submit-moves" style="display:none;">Load</button> 
+                        <button id="comfim-move">确认</button>
+
+                    </div>
                     <hr/>
                     本项目由: aka:he-lium 贡献 | 魔改:ぬるぽ | <a href="https://github.com/gta191977649/dracula-map">Fork me at Github</a> | Blog: <a href="http://blog.sparrow.moe">Sparrow Moe~</a>
                 </div>
