@@ -75,7 +75,7 @@ body {
 
 .popup-header {
     padding: 2px 16px;
-    background-color: darkblue;
+    background-color: #0069d9;
     color: white;
 }
 
@@ -100,17 +100,16 @@ input[type="text"] {
     color: white;
 }
 
-.g {background-color: green}
-.s {background-color: blue}
-.h {background-color: aqua;
-    color : black}
-.m {background-color: teal}
+.g {background-color: #28a745;}
+.s {background-color: #6c757d;}
+.h {background-color: #ffc107;}
+.m {background-color: #17a2b8;}
 
-.d {background-color: darkred}
+.d {background-color: #dc3545;}
 
 .d_unknown {
     background-color: transparent;
-    color: darkred;
+    color: #dc3545;
 }
 
 #move-event {
@@ -132,7 +131,7 @@ input[type="text"] {
 }
 
 #error-msg {
-    color: red;
+    color: #dc3545;
 }
 
 footer {
@@ -140,5 +139,5 @@ footer {
     position: absolute;
     bottom: 0;
     height: 30px;
-    padding-left: 20px;
+
 }

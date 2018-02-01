@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-cn">
     <head>
-        <title>Dracula Viewer</title>
+        <title>Dracula Viewer - 魔改版</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Dominic He">
@@ -14,11 +14,9 @@
        
 
         <div >
-            <h1>Dracula Map Viewer (魔改版)</h1>
-            <h3>目前生成的游戏讯息(DEBUG用)</h3><p id="lb-gameMsg"></p>
-            <p>
-          
-            </p>
+            <h1 class="text-primary">Dracula Map Viewer (魔改版)</h1>
+            <h5>目前生成的游戏讯息(DEBUG用):</h5><p id="lb-gameMsg"></p>
+        
             <noscript><h4>Requires JavaScript</h4></noscript>
             <div id="stats">
                 
@@ -30,11 +28,11 @@
                 </p>
                
                 <p class="locations">
-                    <span class="g">G is at <span id="g-loc"></span></span><br>
-                    <span class="s">S is at <span id="s-loc"></span></span><br>
-                    <span class="h">H is at <span id="h-loc"></span></span><br>
-                    <span class="m">M is at <span id="m-loc"></span></span><br>
-                    <span id="drac-loc" class="d">D is at <span id="d-loc"></span></span><br>
+                    <span class="badge badge-success">G is at <span id="g-loc"></span></span><br>
+                    <span class="badge badge-secondary">S is at <span id="s-loc"></span></span><br>
+                    <span class="badge badge-warning">H is at <span id="h-loc"></span></span><br>
+                    <span class="badge badge-info">M is at <span id="m-loc"></span></span><br>
+                    <span  id="drac-loc" class="badge badge-danger">D is at <span id="d-loc"></span></span><br>
                 </p>
                 
                 <span id="raw-move">.......</span>
@@ -52,7 +50,7 @@
                     <h2>控制台 - <span id="lb-currentPlayer"></span></h2>
                 </div>
                 <div class="popup-body">
-                    <h3>谁是玩家?</h3>
+                    <h3>要玩啥角色呢 =w=</h3>
                     <div class="form-check">
                         <input name="player" id="check-dracular" type="radio" value="0" checked>
                         <label for="check-dracular">吸血鬼</label>
@@ -73,12 +71,13 @@
                         <button class="btn btn-outline-primary mt-3" id="comfim-move">确认</button>
                     </div>
                  
-                    本项目由: aka:he-lium 贡献 | 魔改:ぬるぽ | <a href="https://github.com/gta191977649/dracula-map">Fork me at Github</a> | Blog: <a href="http://blog.sparrow.moe">Sparrow Moe~</a>
+                    本项目由: <span class="text-primary">he-lium</span> 贡献 | 魔改By: ぬるぽ | <a href="https://github.com/gta191977649/dracula-map">Fork me at Github</a> | Blog: <a href="http://blog.sparrow.moe">禾雀飞翔~</a>
                     <footer>
-                        <a  href="mailto:dominic.he@student.unsw.edu.au">contact</a> | 
+                        联系原作者:
+                        <a  href="mailto:dominic.he@student.unsw.edu.au">这里</a> | 
                         <a  href="https://github.com/he-lium/dracula-map/issues/">
                             <span title="Please restrict to urgent bugs">
-                                report a bug
+                                给原作者抱怨BUG
                             </span>
                         </a>
                     </footer>
@@ -95,6 +94,6 @@
         <script src="script/drawmap.js"></script>
         <script src="script/process.js"></script>
         <script src="script/ui.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
+        
     </body>
 </html>

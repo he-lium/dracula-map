@@ -6,12 +6,21 @@ var PLAYER_ROLE_HUNER = 1;
 var CURRENT_TURN = 0;
 var GAME_MSG = "";
 
+var PlayerInfo = {
+    "hp" : []
+};
+
 (function (Player) {
     Player[Player["Godalming"] = 0] = "Godalming";
     Player[Player["Seward"] = 1] = "Seward";
     Player[Player["VanHelsing"] = 2] = "VanHelsing";
     Player[Player["MinaHarker"] = 3] = "MinaHarker";
     Player[Player["Dracula"] = 4] = "Dracula";
+   
+    //猎人的HP初始值
+    for(i =0; i < 4; i++) PlayerInfo.hp[i] = 9;
+    PlayerInfo.hp[Player["Dracula"]] = 40;
+ 
 })(Player || (Player = {}));
 var playerSpans = [
     document.getElementById('g-loc'),
@@ -29,24 +38,24 @@ function drawPlayer(player, cityID, ghostTrail) {
     switch (player) {
         case Player.Godalming:
             y -= 15;
-            color = 'green';
+            color = '#28a745';
             break;
         case Player.Seward:
             x += 15;
-            color = 'blue';
+            color = '#6c757d';
             break;
         case Player.VanHelsing:
             y += 15;
-            color = 'aqua';
+            color = '#ffc107';
             break;
         case Player.MinaHarker:
             x -= 15;
-            color = 'teal';
+            color = '#17a2b8';
             break;
         default:
             x += 15;
             y += 15;
-            color = 'darkred';
+            color = '#dc3545';
             break;
     }
     context.fillStyle = color;
@@ -74,6 +83,7 @@ var rawMoves;
 var hiddenInfoMode;
 function drawMove() {
     //alert(currentMove);
+
     let index;
     drawMap();
     stats.update();
@@ -115,14 +125,18 @@ function drawMove() {
             let id = playHistory[i][idIndex];
             drawPlayer(i, id);
             playerSpans[i].innerText = cities[id].abbrev + " " + cities[id].name;
-            if (i == 4) {
+
+            if (i == 4) { 
                 if (id >= 71) {
                     document.getElementById("drac-loc").className = "d_unknown";
                 }
                 else {
-                    document.getElementById("drac-loc").className = "d";
+                    document.getElementById("drac-loc").className = "badge badge-danger";
                 }
+               
+                
             }
+            playerSpans[i].innerHTML += "<br/> HP: " + PlayerInfo.hp[i] ;
         }
         else {
             playerSpans[i].innerText = "undefined";
@@ -465,13 +479,46 @@ function processMoves(raw) {
             //一次全部给我画完
             nextMove();
             
+            /*alert(playHistory[index]);*/
+            //如果猎人和吸血鬼在一个地图了
+         
+
         });
+        //===============扣血显示==============
+        //console.log("CURRENTLOC = "+ playHistory[CURRENT_TURN]);
+        if(CURRENT_TURN == Player.Dracula){
+            //处理吸血鬼在海上的扣血
+            let currentLoc = cities.find((city) => city.abbrev == location);
+            if(currentLoc.type == 1) {
+                //吸血鬼应该扣2点血
+                PlayerInfo.hp[Player.Dracula] = parseInt(PlayerInfo.hp[Player.Dracula]) -2;
+            }
+            //处理吸血鬼碰到猎人的扣血
+            playHistory.forEach(function (city,index) {
+                //console.log("KEY = " + city + " INDED = "+ index + " CURRENTTURN= " + CURRENT_TURN);
+                if(parseInt(playHistory[CURRENT_TURN])  == parseInt(city) && CURRENT_TURN != index) {
+                    //吸血鬼应该扣10点血
+                    PlayerInfo.hp[Player.Dracula] = parseInt(PlayerInfo.hp[Player.Dracula]) -10;
+                }
+            });
+            
+            //处理剩下猎人碰到吸血鬼的扣血
+            for(i = 0; i < 4; i++) {
+                if(parseInt(playHistory[i]) == playHistory[Player.Dracula]){
+                    //吸血鬼应该扣4点血
+                    PlayerInfo.hp[i] = parseInt(PlayerInfo.hp[i]) -4;
+                }
+            }
+        }
+        console.log("totalMoves = " + totalMoves);
+       
+
         showStats();
         drawMove();
         document.getElementById('error-msg').innerHTML = "";
     }
     catch (e) {
-        document.getElementById('error-msg').innerHTML = "粗错啦: 遇到了奇怪的游戏讯息Orz <br/>"+ "exception on " + e.message;
+        document.getElementById('error-msg').innerHTML = "粗错啦: 遇到了奇怪的游戏讯息Orz <br/>"+ "exception on " + e.message + "<br/> >>> 建议你刷新网页重试比较好哦~ <<<";
     }
 }
 
